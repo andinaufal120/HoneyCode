@@ -31,8 +31,14 @@ fake_data: list[Module] = [
 ]
 
 
-@router.get("/")
-def get_modules():
+@router.get("/", status_code=status.HTTP_200_OK)
+def get_modules() -> List[Module]:
+    """
+    Return all modules.
+    :return: List of modules
+    """
+    if not fake_data:
+        raise HTTPException(status_code=status.HTTP_204_NO_CONTENT, detail="No modules yet")
     return fake_data
 
 
