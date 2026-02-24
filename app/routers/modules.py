@@ -75,7 +75,6 @@ class ModuleInDB(ModuleBase):
     uuid: UUID
 
 
-
 fake_data: list[ModuleOut] = [
     ModuleOut(name="Variabel", module_num=2, uuid=uuid4()),
     ModuleOut(name="Operator", module_num=3, uuid=uuid4()),
@@ -98,7 +97,7 @@ def get_modules() -> list[ModuleOut]:
 def add_module(module: ModuleBase) -> None:
     fake_data.append(
         ModuleOut(uuid=uuid4(), name=module.name, module_num=module.module_num, description=module.description,
-               settings=module.settings))
+                  settings=module.settings))
 
 
 @router.get("/{uuid}")
@@ -115,5 +114,5 @@ def update_module(uuid: UUID, new_data: ModuleOut):
     if not module:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Module not found")
     updated = ModuleOut(uuid=module.uuid, name=new_data.name, module_num=new_data.module_num,
-                     description=new_data.description, settings=new_data.settings)
+                        description=new_data.description, settings=new_data.settings)
     fake_data[i] = updated
